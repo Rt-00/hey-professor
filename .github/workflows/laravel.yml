@@ -36,7 +36,7 @@ jobs:
       run: npm install
       
     - name: Build Assets
-      run: npm install && npm run build
+      run: npm run build
       
     - name: Execute Larastan
       run: vendor/bin/pgpstan analyse
