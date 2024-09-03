@@ -1,0 +1,9 @@
+bash << EOF
+
+./vendor/bin/phpstan analyse
+if [ $? -ne 0 ]; then
+    echo "Opa! Deu ruim aqui com o PHPSTAN. Corrija antes de continuar...";
+    exit 1;
+fi;
+
+EOF
