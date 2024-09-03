@@ -12,6 +12,7 @@ STAGGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,
 
 for FILE in $STAGGED_FILES
 do
+    echo "passou";
     ./vendor/bin/pint "${FILE}";
     git add "${FILE}";
 done;
