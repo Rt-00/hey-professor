@@ -32,6 +32,9 @@ jobs:
         DB_DATABASE: database/database.sqlite
       run: php artisan test --parallel
       
+    - name: Build Assets
+      run: npm install && npm run build
+      
     - name: Execute Larastan
       run: vendor/bin/pgpstan analyse
       
