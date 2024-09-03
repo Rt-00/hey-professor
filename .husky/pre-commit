@@ -1,19 +1,19 @@
-bash << EOF
-    # Analise com PHPSTAN
-    ./vendor/bin/phpstan analyse
-    if [ $? -ne 0 ]; then
-        echo "Opa! Deu ruim aqui com o PHPSTAN. Corrija antes de continuar...";
-        exit 1;
-    fi;
+#!/usr/bin/env bash
 
-    # FORMATAR com o Laravel Pint
-    STAGGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$")
+# Analise com PHPSTAN
+./vendor/bin/phpstan analyse
+if [ $? -ne 0 ]; then
+    echo "Opa! Deu ruim aqui com o PHPSTAN. Corrija antes de continuar...";
+    exit 1;
+fi;
 
-    for FILE in $STAGGED_FILES
-    do
-    ./vendor/bin/pint "${FILE}";
-    git add "${FILE}";
-    done;
+# FORMATAR com o Laravel Pint
+STAGGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$")
 
-    exit 0;
-EOF
+for FILE in $STAGGED_FILES
+do
+./vendor/bin/pint "${FILE}";
+git add "${FILE}";
+done;
+
+exit 0;
