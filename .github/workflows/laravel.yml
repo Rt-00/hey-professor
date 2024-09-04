@@ -1,8 +1,10 @@
-name: CI - Laravel
+name: Laravel CI
 
 on:
+  push:
+    branches: [ "develop" ]
   pull_request:
-    branches: [ "main", "develop" ]
+    branches: [ "develop" ]
 
 jobs:
   laravel-tests:
@@ -30,16 +32,16 @@ jobs:
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
-      run: php artisan test --parallel
+      run: php artisan test
     
-    - name: Install Package.json
+    - name: Install Assets
       run: npm install
-      
+
     - name: Build Assets
       run: npm run build
-      
-    - name: Execute Larastan
-      run: vendor/bin/pgpstan analyse
-      
-    - name: Execute Laravel Pint
+
+    - name: Run Larastan
+      run: vendor/bin/phpstan analyse 
+
+    - name: Run Laravel Pint
       run: vendor/bin/pint --test
