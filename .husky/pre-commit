@@ -7,9 +7,15 @@ if [ $? -ne 0 ]; then
     exit 1;
 fi;
 
-# FORMATAR com o Laravel Pint
-STAGGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$")
+# Rodar os testes
+php artisan test --parallel
+if [ $? -ne 0 ]; then
+    echo "Opa! Deu ruim aqui algum teste. Corrija antes de continuar...";
+    exit 1;
+fi;
 
+# FORMATAR com o Laravel Pint
+STAGGED_FILES=$(git diff --cached --name-only --diff-filter=ACM | grep ".php\{0,1\}$") || true
 for FILE in $STAGGED_FILES
 do
 ./vendor/bin/pint "${FILE}";
